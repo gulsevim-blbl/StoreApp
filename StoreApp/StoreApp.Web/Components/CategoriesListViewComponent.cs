@@ -13,8 +13,13 @@ public class CategoriesListViewComponent:ViewComponent
     public IViewComponentResult Invoke()
     {
         return View(_storeRepository
-                    .Products
-                    .Distinct()
-                    .OrderBy(c => c));
+                    .Categories
+                    .Select(c=>new Models.CategoryViewModel
+                    {
+                        Id=c.Id,
+                        Name=c.Name,
+                        Url=c.Url
+                    })
+                    .ToList());
     }
 }
